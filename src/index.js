@@ -8,7 +8,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Categories from './components/Categories';
 import Products from './components/Products';
-import Cart from './components/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +17,7 @@ root.render(
       <Route path='/' element={<App/>}>
         <Route index element={<h1>Welcome</h1>}/>
         <Route path='/categories' element={<Categories/>}>
+          <Route index element={<h2>Please select a cateogry</h2>}/>
           <Route path=':catID' element={<Products/>}/>
         </Route>
         <Route path='/login' element={<Login/>}/>

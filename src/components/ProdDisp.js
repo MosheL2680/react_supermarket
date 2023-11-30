@@ -7,7 +7,7 @@ const ProdDisp = (props) => {
     const SERVER = 'https://super-django-1.onrender.com'
     return (
         <Card style={{ width: '18rem', margin:'10px' }}>
-            <Card.Img variant="top" src={SERVER+props.prod.img} />
+            <Card.Img style={{height:'250px'}} variant="top" src={SERVER+props.prod.img} />
             <Card.Body>
                 <Card.Title>{props.prod.desc}</Card.Title>
                 <CardFooter>price: {props.prod.price}$</CardFooter>

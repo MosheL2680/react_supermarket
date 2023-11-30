@@ -5,12 +5,11 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const Categories = () => {
     const [cats, setcats] = useState([])
-    const location = useLocation();
+    const location = useLocation()
+    const SERVER = 'https://super-django-1.onrender.com/categories'
 
     useEffect(() => {
-        axios.get('https://super-django-1.onrender.com/categories').then(res => {
-            setcats(res.data)
-        })
+        axios.get(SERVER).then(res =>setcats(res.data))
     }, [])
 
     return (
