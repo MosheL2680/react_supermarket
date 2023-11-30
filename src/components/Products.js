@@ -36,7 +36,6 @@ const Products = () => {
         const current_prod = cart.find(prod => prod.id === item.id)
         if (del) {
             setcart(cart.filter(prod => prod.id !== current_prod.id))//remove item from cart when function was called with some 'del' var
-            setrefresh(!refresh)
         }
         if (current_prod) {
             if (current_prod.amount + quantity === 0) {
