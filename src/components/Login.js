@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { MDBContainer, MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-function Login() {
+function Login(props) {
     const [uName, setuName] = useState("");
     const [pwd, setpwd] = useState("");
     const [token, settoken] = useState("");
@@ -17,20 +18,31 @@ function Login() {
     }, []);
 
     const doLogin = () => {
-        axios.post("https://super-django-1.onrender.com/login/", { username: uName, password: pwd })
-            .then(res => {
-                settoken(res.data.access);
-                sessionStorage.setItem('token', res.data.access);
-                const object = JSON.parse(atob(res.data.access.split('.')[1]));
-                console.log(object.username + ' just logged');
-                navigate('/');
-            });
+        if (!uName || !pwd) {
+            toast.error('Username and password are required');
+            return;
+        }
+
+        toast.promise(
+            axios.post("https://super-django-1.onrender.com/login/", { username: uName, password: pwd })
+                .then(res => {
+                    settoken(res.data.access);
+                    sessionStorage.setItem('token', res.data.access);
+                    toast.success('you are logged in now')
+                    navigate('/');
+                })
+                .catch((error) => {
+                    toast.error(`username or password isn't correct`)
+                }),
+            { pending: 'Processing login...' }
+        )
+
     }
 
     if (token !== "") {
         return <div>
-            <h1>Already logged in</h1>
-            {/* You can add more content or components for the already logged in state */}
+            <h1>You're already logged in</h1>
+            <Link to={'/categories'}>back to shop</Link>
         </div>;
     }
 
