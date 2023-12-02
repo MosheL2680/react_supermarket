@@ -12,6 +12,7 @@ const Products = (props) => {
     const [refresh, setrefresh] = useState(false)
     const [total, settotal] = useState(0)
     const [clearCart, setclearCart] = useState(false)
+    const [paynow, setpaynow] = useState(false)
     const SERVER = 'https://super-django-1.onrender.com/products'
 
 
@@ -58,15 +59,15 @@ const Products = (props) => {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{display:'flex', marginBottom:'55px'}}>
             <div style={{ flex: 1, marginRight: '10px' }}>
                 <Row xs={1} md={2} className="g-4">
                     {prods.map(prod => <ProdDisp key={prod.id} prod={prod} buy={buy} />)}
                 </Row>
             </div>
-            <div style={{ borderLeft: '1px solid grey', height: '100vh', margin: '0 10px' }}></div>
+            <div style={{ borderLeft: '1px solid grey', height: '100hv', margin: '0 10px' }}></div>
             <div style={{ width: '350px' }}>
-                <Cart cart={cart} total={total} setcart={setcart} setclearCart={setclearCart} buy={buy} Toast={props.Toast} />
+                <Cart cart={cart} total={total} setcart={setcart} setclearCart={setclearCart} buy={buy} Toast={props.Toast} setpaynow={setpaynow} paynow={paynow} />
             </div>
         </div>
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Nav } from 'react-bootstrap'
+import { Nav, Spinner } from 'react-bootstrap'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaList } from 'react-icons/fa';
@@ -8,16 +8,19 @@ import { RiHistoryLine } from 'react-icons/ri';
 
 
 
-
 const Categories = () => {
     const [cats, setcats] = useState([])
+    const [loading, setloading] = useState(true)
     const location = useLocation()
     const SERVER = 'https://super-django-1.onrender.com/categories'
 
     useEffect(() => {
         toast.promise(
             axios.get(SERVER)
-                .then(res => setcats(res.data)),
+                .then(res => {
+                    setcats(res.data)
+                    setloading(false)
+                }),
             { pending: 'loading data...' }
         );
     }, []);
@@ -33,7 +36,7 @@ const Categories = () => {
                         to={`history`}
                         eventKey={`link-100}`}
                         className={location.pathname === `/categories/history` ? 'active' : ''}
-                    >
+                        >
                         <RiHistoryLine style={{ marginRight: '5px' }} /> Orders history
                     </Nav.Link>
                 </Nav.Item>
@@ -63,6 +66,7 @@ const Categories = () => {
                 )}
             </Nav>
             <br />
+            {loading && <Spinner animation="grow" variant="primary" />}
             <Outlet />
         </>
     )

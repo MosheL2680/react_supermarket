@@ -34,14 +34,17 @@ const Register = () => {
 
 
   return (
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-      <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' onChange={(e) => setuName(e.target.value)} />
-      <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e) => setpwd(e.target.value)} />
-      <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' onChange={(e) => setEmail(e.target.value)} />
+    <>
+      <br /><h2>Sign Up</h2>
+      <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+        <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' onChange={(e) => setuName(e.target.value)} />
+        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e) => setpwd(e.target.value)} />
+        <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' onChange={(e) => setEmail(e.target.value)} />
 
-      <MDBBtn className="mb-4" onClick={() => doRegister()}>Sign Up</MDBBtn>
+        <MDBBtn className="mb-4" onClick={() => doRegister()}>Sign Up</MDBBtn>
 
-    </MDBContainer>
+      </MDBContainer>
+    </>
   );
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaSignInAlt, FaUserPlus, FaUser } from 'react-icons/fa';
+import '../App.css'
 
 
 
@@ -13,11 +14,10 @@ const NavBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {/* Use Nav.Link for the "Shop" link */}
-                        <Nav.Link as={Link} to="/categories" style={{ color: 'white' }}>
+                        <Nav.Link as={Link} to="/categories" style={{ color: 'white', marginRight: '20px' }}>
                             Shop
                         </Nav.Link>
-                        <NavDropdown title={<span><FaUser style={{ marginRight: '5px' }} /> Account</span>} id="basic-nav-dropdown">
+                        <NavDropdown title={<span><FaUser style={{ marginBottom: '8px' }} /> Account</span>}>
                             <NavDropdown.Item>
                                 <Link to="/login">
                                     <FaSignInAlt style={{ marginRight: '5px' }} /> Login

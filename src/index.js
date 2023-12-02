@@ -12,31 +12,26 @@ import { ThemeProvider } from 'react-bootstrap';
 import History from './components/History';
 import Welcome from './components/Welcome';
 
-const token = sessionStorage.getItem('token')
-    const tokenData = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token,
-    }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-     <ThemeProvider>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App/>}>
-        <Route index element={<Welcome/>}/>
-        <Route path='/categories' element={<Categories/>}>
-          <Route index element={<Products/>}/>
-          <Route path='history' element={<History tokenData={tokenData}/>}/>
-          <Route path=':catID' element={<Products/>}/>
-          <Route path='allProducts' element={<Products/>}/>
-        </Route>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-      </Route>
-    </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}>
+            <Route index element={<Welcome />} />
+            <Route path='/categories' element={<Categories />}>
+              <Route index element={<Products />} />
+              <Route path='history' element={<History/>} />
+              <Route path=':catID' element={<Products />} />
+              <Route path='allProducts' element={<Products />} />
+            </Route>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );

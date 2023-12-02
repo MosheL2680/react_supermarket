@@ -1,22 +1,30 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, CardFooter, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { Card, CardSubtitle, CardText, ListGroup, Row } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-const History = (props) => {
+
+const History = () => {
+    const token = sessionStorage.getItem('token')
+    const tokenData = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+    }
     const [history, setHistory] = useState([]);
     const [refresh, setrefresh] = useState(false)
     const SERVER = 'https://super-django-1.onrender.com';
 
     const fetchHistory = () => {
         toast.promise(
-            axios.get(SERVER + '/history', { headers: props.tokenData })
+            axios.get(SERVER + '/history', { headers: tokenData })
                 .then(res => {
                     const temp = res.data.orders.reverse()
                     setHistory(temp)
                 })
                 .catch(error => {
-                    if(error.response && error.response.status === 401) toast.error('Unauthorized! please login')
+                    if (error.response && error.response.status === 401) toast.error('Unauthorized! please login')
                     console.error('Error fetching history:', error);
                 }),
             {
@@ -34,25 +42,38 @@ const History = (props) => {
 
 
     return (
-        <div>
-            {history.map(order => (
-                <div key={order.order_date}>
-                    Order date: {order.order_date}<hr />
-                    <Row xs={1} md={2} lg={3} className="g-4">
-                        {order.order_details.map(item => (
-                            <Card style={{ width: '10rem', margin: '10px' }} key={item.id}>
-                                <Card.Img style={{ height: '100px', objectFit: 'cover' }} variant="top" src={SERVER + item.product_image} />
-                                <Card.Body>
-                                    <Card.Title>{item.product_desc}</Card.Title>
-                                    <CardFooter>Price: {props.product_price}$</CardFooter>
-                                    <Button variant="primary" onClick={() => props.buy(props.prod)}>Add to cart</Button>
-                                </Card.Body>
-                            </Card>
-                        ))}
-                    </Row>
-                    <hr />
-                </div>
-            ))}
+        <div >
+            {history.length === 0 && <h3>You have no history of orders</h3>}
+            <Row xs={1} md={4} className="g-4">
+                {history.map(order => (
+                    <Card style={{margin:'10px', padding:'10px'}}>
+                        <div key={order.order_date}>
+                            <div style={{ display: 'flex' }}>
+                                <FontAwesomeIcon icon={faShoppingCart} style={{ fontSize: '2em' }} />
+                                <h5 style={{ marginLeft: '10px' }}>Order date: {new Date(order.order_date).toLocaleString()}</h5>
+                            </div>
+                            <ListGroup>
+                                {order.order_details.map(item => (
+                                    <ListGroup.Item style={{ marginTop: '10px', position: 'relative' }}
+                                        className="d-flex justify-content-between align-items-start"
+                                        key={item.product_id}
+                                    >
+                                        <img src={SERVER + item.product_image} alt={`Thumbnail for ${item.product_desc}`} style={{ width: '50px', marginRight: '10px' }} />
+                                        <div className="ms-2 me-auto">
+                                            <div className="fw-bold">{item.product_desc}</div>
+                                            Amount: {item.quantity}
+                                        </div>
+                                        <CardText style={{ color: 'blue', fontWeight: 'bolder', position: 'absolute', right: '25px ', bottom: '18px' }}>
+                                            ${parseFloat((item.product_price * item.quantity).toFixed(2))}
+                                        </CardText>
+                                        {item.quantity > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '12px', right: '25px', fontSize: '12px' }}><span style={{ color: 'blue' }}>${item.product_price}</span> each</CardSubtitle>}
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </div>
+                    </Card>
+                ))}
+            </Row>
         </div>
     );
 

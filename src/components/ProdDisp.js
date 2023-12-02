@@ -10,7 +10,7 @@ const ProdDisp = (props) => {
             <Card.Img style={{height:'250px'}} variant="top" src={SERVER+props.prod.img} />
             <Card.Body>
                 <Card.Title>{props.prod.desc}</Card.Title>
-                <CardFooter>price: {props.prod.price}$</CardFooter>
+                <CardFooter>price: <span style={{color:'blue'}}>${props.prod.price}</span></CardFooter>
                 <Button variant="primary" onClick={()=>props.buy(props.prod)}>Add to cart</Button>
             </Card.Body>
         </Card>

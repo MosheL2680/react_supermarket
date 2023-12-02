@@ -1,7 +1,10 @@
 import axios from 'axios'
-import React from 'react'
-import { Button, CardText, ListGroup } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, CardSubtitle, CardText, ListGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import Pay from './PayPal';
 
 
 const Cart = (props) => {
@@ -20,10 +23,10 @@ const Cart = (props) => {
         toast.promise(
             axios.post(SERVER + '/checkout', { cart: props.cart }, { headers: tokenData })
                 .then((res) => {
-                    console.log(res.data);
+                    props.setpaynow(true)
                     props.setcart([]);
                     props.setclearCart(true);
-                    toast.success('Checkout successful! 👌')
+                    toast.success('Checkout successful! 👌 receipt sent to your email')
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 401) {
@@ -37,12 +40,22 @@ const Cart = (props) => {
         );
     };
 
-    return (
-        <div>
-            <div style={{ display: 'flex', backgroundColor: 'rgb(100, 202, 202)', padding: '10px' }}>
-                <h3>Your cart</h3>
-                <Button style={{ position: 'absolute', right: "0" }} onClick={() => CheckOut()}>{'CheckOut   '}{props.total}$</Button>
+    if (props.paynow) {
+        return (
+            <div>
+                <Pay />
+                <Button onClick={() => props.setpaynow(false)}>Exit</Button>
             </div>
+        );
+    }
+    else return (
+        <div>
+            <div style={{ display: 'flex', backgroundColor: 'rgb(100, 202, 202)', padding: '10px', alignItems: 'center' }}>
+                <FontAwesomeIcon icon={faShoppingCart} style={{ fontSize: '2em' }} />
+                <h3 style={{ marginLeft: '10px', fontSize: '1.5em' }}>Your cart</h3>
+                <Button style={{ marginLeft: 'auto', fontSize: '1.2em' }} onClick={() => CheckOut()}>{'CheckOut   '}{props.total}$</Button>
+            </div>
+
             <ListGroup>
                 {props.cart.map(item => (
                     <ListGroup.Item style={{ marginTop: '10px', position: 'relative' }}
@@ -65,9 +78,11 @@ const Cart = (props) => {
                             <Button className='bg-success' onClick={() => props.buy(item)}>+</Button>
                         </div>
                         {/* Move the price to the right but not at the top */}
-                        <CardText style={{ color: 'blue', fontWeight: 'bolder', position: 'absolute', right: '25px ', bottom: '30px' }} pill>
-                            {parseFloat((item.price * item.amount).toFixed(2))}$
+                        <CardText style={{ color: 'blue', fontWeight: 'bolder', position: 'absolute', right: '25px ', bottom: '27px' }}>
+                            ${parseFloat((item.price * item.amount).toFixed(2))}
                         </CardText>
+                        {item.amount > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '15px', right: '25px', fontSize: '12px' }}><span style={{ color: 'blue' }}>${item.price}</span> each</CardSubtitle>}
+
                     </ListGroup.Item>
                 ))}
             </ListGroup>
