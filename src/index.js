@@ -11,6 +11,7 @@ import Products from './components/Products';
 import { ThemeProvider } from 'react-bootstrap';
 import History from './components/History';
 import Welcome from './components/Welcome';
+import ResetPass from './components/ResetPass';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -29,6 +30,7 @@ root.render(
             </Route>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/resetpass' element={<ResetPass />} />
           </Route>
         </Routes>
       </BrowserRouter>

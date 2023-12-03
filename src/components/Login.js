@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MDBContainer, MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { Context } from '../App';
 
 const Login = () => {
     const [uName, setuName] = useState("");
     const [pwd, setpwd] = useState("");
     const [token, settoken] = useState("");
+    const {uservalue} = useContext(Context)
+    const [user, setuser] = uservalue
     const navigate = useNavigate();
     const SERVER = "https://super-django-1.onrender.com/"
 
@@ -27,9 +30,12 @@ const Login = () => {
         toast.promise(
             axios.post(SERVER + 'login/', { username: uName, password: pwd })
                 .then(res => {
-                    settoken(res.data.access);
-                    sessionStorage.setItem('token', res.data.access);
-                    toast.success('you are logged in now')
+                    const tempToken = res.data.access
+                    settoken(tempToken);
+                    sessionStorage.setItem('token', tempToken);
+                    const object = JSON.parse(atob(tempToken.split('.')[1]))
+                    setuser(object.username)
+                    toast.success(`you are logged in now`)
                     navigate('/');
                 })
                 .catch((error) => {
@@ -41,15 +47,20 @@ const Login = () => {
 
     const LogOut = () => {
         axios.get(SERVER + 'logout/').then(
-            sessionStorage.removeItem('token'), // Clear the token from session storage
+            sessionStorage.removeItem('token'),
+            setuser('user'),
             toast(`You've been logged out. Goodbye:)`),
             navigate('/')
         )
     }
 
+    const goToReset = () => {
+        navigate('/resetpass')
+    }
+
     if (token !== "") {
         return <div>
-            <h1>You're already logged in</h1>
+            <h1>You're logged in {user}</h1>
             <Link to={'/categories'}>back to shop</Link>
             <br /><br />
             <MDBBtn onClick={() => LogOut()}><FaSignOutAlt /> Log Out</MDBBtn>
@@ -64,7 +75,7 @@ const Login = () => {
                 <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e) => setpwd(e.target.value)} />
 
                 <div className="d-flex justify-content-between mx-3 mb-4">
-                    <a href="!#">Forgot password?</a>
+                    <Link onClick={()=>goToReset()}>Forgot password?</Link>
                 </div>
 
                 <MDBBtn className="mb-4" onClick={doLogin}>Sign in</MDBBtn>

@@ -14,7 +14,7 @@ const Pay = () => {
       purchase_units: [
         {
           amount: {
-            value: '10.00', // Replace with the amount you want to charge
+            value: 10 // Replace with the amount you want to charge
           },
         },
       ],

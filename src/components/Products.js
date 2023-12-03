@@ -66,7 +66,7 @@ const Products = (props) => {
                 </Row>
             </div>
             <div style={{ borderLeft: '1px solid grey', height: '100hv', margin: '0 10px' }}></div>
-            <div style={{ width: '350px' }}>
+            <div style={{ width: '400px' }}>
                 <Cart cart={cart} total={total} setcart={setcart} setclearCart={setclearCart} buy={buy} Toast={props.Toast} setpaynow={setpaynow} paynow={paynow} />
             </div>
         </div>

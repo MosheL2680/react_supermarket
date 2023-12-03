@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 const ProdDisp = (props) => {
     const SERVER = 'https://super-django-1.onrender.com'
     return (
-        <Card style={{ width: '18rem', margin:'10px' }}>
+        <Card style={{ width: '18rem', margin:'10px', textAlign:'center' }}>
             <Card.Img style={{height:'250px'}} variant="top" src={SERVER+props.prod.img} />
             <Card.Body>
                 <Card.Title>{props.prod.desc}</Card.Title>

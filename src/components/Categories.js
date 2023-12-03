@@ -27,7 +27,7 @@ const Categories = () => {
 
 
     return (
-        <>
+        <div style={{marginLeft:'12px'}}>
             <Nav variant="tabs" defaultActiveKey="/home">
                 <Nav.Item >
                     <Nav.Link
@@ -66,9 +66,9 @@ const Categories = () => {
                 )}
             </Nav>
             <br />
-            {loading && <Spinner animation="grow" variant="primary" />}
+            {loading && <Spinner style={{position:'absolute', left:'10px'}} animation="grow" variant="primary" />}
             <Outlet />
-        </>
+        </div>
     )
 }
 

@@ -1,19 +1,18 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Button, CardSubtitle, CardText, ListGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import Pay from './PayPal';
+import { Context } from '../App';
 
 
 const Cart = (props) => {
     const SERVER = 'https://super-django-1.onrender.com'
-    const token = sessionStorage.getItem('token')
-    const tokenData = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token,
-    }
+    const {tokenvalue} = useContext(Context)
+    const [tokenData] = tokenvalue
+    
 
     const CheckOut = () => {
         if (props.cart.length === 0) {
@@ -43,7 +42,7 @@ const Cart = (props) => {
     if (props.paynow) {
         return (
             <div>
-                <Pay />
+                <Pay total={props.total} />
                 <Button onClick={() => props.setpaynow(false)}>Exit</Button>
             </div>
         );
@@ -52,8 +51,8 @@ const Cart = (props) => {
         <div>
             <div style={{ display: 'flex', backgroundColor: 'rgb(100, 202, 202)', padding: '10px', alignItems: 'center' }}>
                 <FontAwesomeIcon icon={faShoppingCart} style={{ fontSize: '2em' }} />
-                <h3 style={{ marginLeft: '10px', fontSize: '1.5em' }}>Your cart</h3>
-                <Button style={{ marginLeft: 'auto', fontSize: '1.2em' }} onClick={() => CheckOut()}>{'CheckOut   '}{props.total}$</Button>
+                <h3 style={{ marginLeft: '10px', fontSize: '1.5em' }}>Your cart ({props.cart.length})</h3>
+                <Button className='bg-success' style={{ marginLeft: 'auto', fontSize: '1.2em' }} onClick={() => CheckOut()}>{'CheckOut '}${props.total}</Button>
             </div>
 
             <ListGroup>

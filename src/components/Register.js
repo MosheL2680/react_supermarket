@@ -34,7 +34,7 @@ const Register = () => {
 
 
   return (
-    <>
+    <div style={{textAlign:'center'}}>
       <br /><h2>Sign Up</h2>
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' onChange={(e) => setuName(e.target.value)} />
@@ -44,7 +44,7 @@ const Register = () => {
         <MDBBtn className="mb-4" onClick={() => doRegister()}>Sign Up</MDBBtn>
 
       </MDBContainer>
-    </>
+    </div>
   );
 }
 
