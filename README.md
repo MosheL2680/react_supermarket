@@ -1,4 +1,5 @@
 # Moshe shop - supermarket react App
+Go see the live site (using netlify server): https://moshe-shop.netlify.app/
 
 
 ## Installation & usage
