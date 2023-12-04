@@ -31,7 +31,7 @@ const Register = () => {
             const object = JSON.parse(atob(tempToken.split('.')[1]))
             setuser(object.username)
             toast(`you are logged in now`)
-            navigate('/');
+            navigate('/categories');
           });
       }),
       { pending: 'Proccessing...' }
