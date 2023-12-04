@@ -35,7 +35,7 @@ const Login = () => {
                     sessionStorage.setItem('token', tempToken);
                     const object = JSON.parse(atob(tempToken.split('.')[1]))
                     setuser(object.username)
-                    toast.success(`you are logged in now`)
+                    toast(`you are logged in now`)
                     navigate('/');
                 })
                 .catch((error) => {
