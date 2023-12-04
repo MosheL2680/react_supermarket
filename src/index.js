@@ -24,7 +24,7 @@ root.render(
             <Route index element={<Welcome />} />
             <Route path='/categories' element={<Categories />}>
               <Route index element={<Products />} />
-              <Route path='history' element={<History/>} />
+              <Route path='history' element={<History />} />
               <Route path=':catID' element={<Products />} />
               <Route path='allProducts' element={<Products />} />
             </Route>
@@ -35,7 +35,7 @@ root.render(
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
