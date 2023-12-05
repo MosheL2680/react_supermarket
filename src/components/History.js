@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Card, CardSubtitle, CardText, ListGroup, Row } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { FaShekelSign } from 'react-icons/fa';
 
 
 const History = () => {
@@ -46,7 +47,7 @@ const History = () => {
             {history.length === 0 && <h3>You have no history of orders</h3>}
             <Row xs={1} md={4} className="g-4">
                 {history.map(order => (
-                    <Card style={{margin:'10px', padding:'10px'}}>
+                    <Card style={{ margin: '10px', padding: '10px' }}>
                         <div key={order.order_date}>
                             <div style={{ display: 'flex' }}>
                                 <FontAwesomeIcon icon={faShoppingCart} style={{ fontSize: '2em' }} />
@@ -64,9 +65,9 @@ const History = () => {
                                             Amount: {item.quantity}
                                         </div>
                                         <CardText style={{ color: 'blue', fontWeight: 'bolder', position: 'absolute', right: '25px ', bottom: '18px' }}>
-                                            ${parseFloat((item.product_price * item.quantity).toFixed(2))}
+                                            <span style={{ color: 'blue', fontWeight: 'bolder' }}><FaShekelSign style={{ fontSize: '11px' }} />{parseFloat((item.product_price * item.quantity).toFixed(2))}</span>
                                         </CardText>
-                                        {item.quantity > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '12px', right: '25px', fontSize: '12px' }}><span style={{ color: 'blue' }}>${item.product_price}</span> each</CardSubtitle>}
+                                        {item.quantity > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '12px', right: '25px', fontSize: '12px' }}><span style={{ color: 'blue', fontWeight:'bolder' }}><FaShekelSign style={{fontSize:'9px'}}/>{item.product_price}</span> each</CardSubtitle>}
                                     </ListGroup.Item>
                                 ))}
                             </ListGroup>

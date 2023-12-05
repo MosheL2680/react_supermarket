@@ -4,15 +4,16 @@ import { Button, CardSubtitle, CardText, ListGroup } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { FaShekelSign } from 'react-icons/fa';
 import Pay from './PayPal';
 import { Context } from '../App';
 
 
 const Cart = (props) => {
     const SERVER = 'https://super-django-1.onrender.com'
-    const {tokenvalue} = useContext(Context)
+    const { tokenvalue } = useContext(Context)
     const [tokenData] = tokenvalue
-    
+
 
     const CheckOut = () => {
         if (props.cart.length === 0) {
@@ -52,7 +53,9 @@ const Cart = (props) => {
             <div style={{ display: 'flex', backgroundColor: 'rgb(100, 202, 202)', padding: '10px', alignItems: 'center' }}>
                 <FontAwesomeIcon icon={faShoppingCart} style={{ fontSize: '2em' }} />
                 <h3 style={{ marginLeft: '10px', fontSize: '1.5em' }}>Your cart ({props.cart.length})</h3>
-                <Button className='bg-success' style={{ marginLeft: 'auto', fontSize: '1.2em' }} onClick={() => CheckOut()}>{'CheckOut '}${props.total}</Button>
+                <Button className='bg-success' style={{ marginLeft: 'auto', fontSize: '1.2em' }} onClick={() => CheckOut()}>
+                    {'CheckOut '}<span style={{ fontWeight: 'bolder' }}><FaShekelSign style={{ fontSize: '13px' }} />{props.total}</span>
+                </Button>
             </div>
 
             <ListGroup>
@@ -76,12 +79,12 @@ const Cart = (props) => {
                             Amount: {item.amount}
                             <Button className='bg-success' onClick={() => props.buy(item)}>+</Button>
                         </div>
-                        {/* Move the price to the right but not at the top */}
                         <CardText style={{ color: 'blue', fontWeight: 'bolder', position: 'absolute', right: '25px ', bottom: '27px' }}>
-                            ${parseFloat((item.price * item.amount).toFixed(2))}
+                            <span style={{ color: 'blue', fontWeight: 'bolder' }}><FaShekelSign style={{ fontSize: '11px' }} />{parseFloat((item.price * item.amount).toFixed(2))}</span>
                         </CardText>
-                        {item.amount > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '15px', right: '25px', fontSize: '12px' }}><span style={{ color: 'blue' }}>${item.price}</span> each</CardSubtitle>}
-
+                        {item.amount > 1 && <CardSubtitle style={{ position: 'absolute', bottom: '15px', right: '25px', fontSize: '12px' }}>
+                            <span style={{ color: 'blue', fontWeight: 'bolder' }}><FaShekelSign style={{ fontSize: '9px' }} />{item.price}</span> each
+                        </CardSubtitle>}
                     </ListGroup.Item>
                 ))}
             </ListGroup>
