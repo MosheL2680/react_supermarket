@@ -5,6 +5,7 @@ import ProdDisp from './ProdDisp'
 import { Row } from 'react-bootstrap'
 import Cart from './Cart'
 
+
 const Products = (props) => {
     const { catID } = useParams()
     const [prods, setprods] = useState([])
@@ -21,7 +22,7 @@ const Products = (props) => {
         storedCart && setcart(storedCart);
         if (catID) {
             axios.get(`${SERVER}/${catID}`).then((res) => setprods(res.data));
-        }else{
+        } else {
             axios.get(SERVER).then((res) => setprods(res.data));
         }
     }, [catID]);
@@ -59,7 +60,7 @@ const Products = (props) => {
     }
 
     return (
-        <div style={{display:'flex', marginBottom:'55px'}}>
+        <div style={{ display: 'flex', marginBottom: '55px' }}>
             <div style={{ flex: 1, marginRight: '10px' }}>
                 <Row xs={1} md={2} className="g-4">
                     {prods.map(prod => <ProdDisp key={prod.id} prod={prod} buy={buy} />)}

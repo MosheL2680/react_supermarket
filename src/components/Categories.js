@@ -1,10 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Nav, Spinner } from 'react-bootstrap'
+import {  Nav, Spinner } from 'react-bootstrap'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaList } from 'react-icons/fa';
 import { RiHistoryLine } from 'react-icons/ri';
+import CircularProgress from '@mui/joy/CircularProgress';
+import IconButton from '@mui/joy/CircularProgress';
+import Button from '@mui/joy/Button';
+
 
 
 
@@ -27,7 +31,7 @@ const Categories = () => {
 
 
     return (
-        <div style={{marginLeft:'12px'}}>
+        <div style={{ marginLeft: '12px' }}>
             <Nav variant="tabs" defaultActiveKey="/home">
                 <Nav.Item >
                     <Nav.Link
@@ -36,7 +40,7 @@ const Categories = () => {
                         to={`history`}
                         eventKey={`link-100}`}
                         className={location.pathname === `/categories/history` ? 'active' : ''}
-                        >
+                    >
                         <RiHistoryLine style={{ marginRight: '5px' }} /> Orders history
                     </Nav.Link>
                 </Nav.Item>
@@ -66,7 +70,7 @@ const Categories = () => {
                 )}
             </Nav>
             <br />
-            {loading && <Spinner style={{position:'absolute', left:'10px'}} animation="grow" variant="primary" />}
+            {loading && <Button style={{position:'fixed', left:'15px'}} startDecorator={<CircularProgress variant="solid" />}>Loading…</Button>}
             <Outlet />
         </div>
     )

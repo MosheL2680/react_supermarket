@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand style={{ color: 'aqua', fontSize: '25px', fontFamily: '-moz-initial', fontWeight: 'bolder' }}>MyShop</Navbar.Brand>
+                <Navbar.Brand style={{ color: 'aqua', fontSize: '25px', fontFamily: '-moz-initial', fontWeight: 'bolder' }}>MosheShop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

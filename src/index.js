@@ -21,6 +21,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<App />}>
+            <Route path='*' element={<h1>page not found</h1>}/>
             <Route index element={<Welcome />} />
             <Route path='/categories' element={<Categories />}>
               <Route index element={<Products />} />
